@@ -52,41 +52,31 @@ GetActivities <- function()
   return(activities[order(activities$id), ]$Activity);
 }
 
+#Returns a logical vector of which columns contain a Mean or StDev measurement
 ExtractMeanStDevColNamesFilter <- function(x)
 {
   colNames <- colnames(data);
   return(grepl("(\\.mean\\.)|(\\.std\\.)", colNames));
 }
 
-#Take in a data frame with an Activities column, and returns a data frame with the
-#Activity folded into the name
-#FoldActivitiesIntoData <- function(data)
-#{
-#  AddActivityToColumnName <- function(group)
-#  {
-#    groupname <- toString(group$Activity[1]);
-#    columns <- names(group);
-#    return(lapply(columns, function(x) { paste(c(x, groupname), collapse=".")}));
-#  }
-#  
-#  splitData <- split(data, data$Activity)
-#  newColNames <- lapply(splitData, AddActivityToColumnName);
-#  mapply()
-#  
-#  return(newColNames);
-#}
+#Returns a data frame that summarizes an imported data set by activity type
+GenerateActivityMeans <- function(data)
+{
+  activities <- split(data, data$Activity);
+  activityMeans <- lapply(activities, function(x) { sapply(x[, 1:ncol(x)-1], mean)});
+  return(as.data.frame(activityMeans));  
+}
 
 #Read the test table in using above functions to get and transform
 #column names, then rbind the training table to it
-#data <- ReadAndMergeTables(lapply(GetHeaders(), CleanHeaderName));
+data <- ReadAndMergeTables(lapply(GetHeaders(), CleanHeaderName));
 
 #Now we're going to remove any column that doesn't contain Mean or StDev measures
-#data <- data[, ExtractMeanStDevColNamesFilter(data)]
+data <- data[, ExtractMeanStDevColNamesFilter(data)]
 
 #We're going to CBind the activities to the data
-#data$Activity <- GetActivities();
+data$Activity <- GetActivities();
 
 #At this point, we now have our transformed raw data to work with.  We now need a tidy data set.  We're going to
 #construct a set where the columns are the mean/stdev columns, and each row represents on Activity
-activities <- split(data, data$Activity);
-View(activities[[1]])
+tidyData <- GenerateActivityMeans(data);
