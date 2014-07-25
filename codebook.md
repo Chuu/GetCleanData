@@ -2,6 +2,10 @@ Interpreting Column Names
 -------------------------
 Each column names consists of a prefix signifying what domain the data belongs to.  Interpreting the rest of the column name depends on what the prefix was.  There are currently three prefixes -- "t", "f", and "a".  These correspond to "Time Domain", "Frequency Domain", and "Angle".  Time Domain and Frequency Domain are interpreted in one way, Angle a separate way.
 
+# Notes on Unit and Domain of Measurement
+- Unfortunately, the raw data did not specify units, hense this codebook does not explicitly specify units
+- All values in the raw data were normalized to [-1,1]
+
 # Time Domain / Frequency Domain Variable Convention
 
 If the variable name beings with a "t" or "f", then the full name can be broken into four parts.  They correspond to:
