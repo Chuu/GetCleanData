@@ -10,6 +10,7 @@ If the variable name beings with a "t" or "f", then the full name can be broken 
 - The type signal being measured
 - The specific statistic of the signal being measured
 - The domain specifier
+- The activity
 
 The naming convention for the statistic being measured is as below:
 
@@ -30,6 +31,15 @@ The naming convention for the statistic being measured is as below:
 - kurtosis: kurtosis of the frequency domain signal 
 - bandsEnergy: Energy of a frequency interval within the 64 bins of the FFT of each window.
 - angle: Angle between to vectors.
+
+The naming set of activities is as follows:
+
+- WALKING
+- WALKING_UPSTAIR
+- WALKING_DOWNSTAIRS
+- SITTING
+- STANDING
+- LAYING
 
 # Angle Domain Variable Convention
 
