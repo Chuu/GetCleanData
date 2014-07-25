@@ -78,16 +78,15 @@ ExtractMeanStDevColNamesFilter <- function(x)
 
 #Read the test table in using above functions to get and transform
 #column names, then rbind the training table to it
-data <- ReadAndMergeTables(lapply(GetHeaders(), CleanHeaderName));
+#data <- ReadAndMergeTables(lapply(GetHeaders(), CleanHeaderName));
 
 #Now we're going to remove any column that doesn't contain Mean or StDev measures
-data <- data[, ExtractMeanStDevColNamesFilter(data)]
+#data <- data[, ExtractMeanStDevColNamesFilter(data)]
 
 #We're going to CBind the activities to the data
-data$Activity <- GetActivities();
+#data$Activity <- GetActivities();
 
-#Now something that normally I wouldn't do -- we're going to "fold" in the activity column
-#into the data by splitting by activity, and creating a new data.table where the column names
-#reflect the activity
-
-#Then, we're going to transform the activity names into something more useful
+#At this point, we now have our transformed raw data to work with.  We now need a tidy data set.  We're going to
+#construct a set where the columns are the mean/stdev columns, and each row represents on Activity
+activities <- split(data, data$Activity);
+View(activities[[1]])
