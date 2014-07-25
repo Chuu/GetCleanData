@@ -41,7 +41,7 @@ ReadAndMergeTables <- function(colNames)
 GetActivities <- function()
 {
   colNames <- c("ActivityID");
-  activities <- read.table("UCI HAR Dataset/test/y_test.txt", col.names = colNames)
+  activities <- read.table("UCI HAR Dataset/test/y_test.txt", col.names = colNames);
   activities <- rbind(activities, read.table("UCI HAR Dataset/train/y_train.txt", col.names = colNames));
   activityLabels <- read.table("UCI HAR Dataset/activity_labels.txt", col.names = c("ActivityID", "Activity"))
   
@@ -64,7 +64,7 @@ GenerateActivityMeans <- function(data)
 {
   activities <- split(data, data$Activity);
   activityMeans <- lapply(activities, function(x) { sapply(x[, 1:ncol(x)-1], mean)});
-  return(as.data.frame(activityMeans));  
+  return(as.data.frame(activityMeans));
 }
 
 #Read the test table in using above functions to get and transform
@@ -80,3 +80,6 @@ data$Activity <- GetActivities();
 #At this point, we now have our transformed raw data to work with.  We now need a tidy data set.  We're going to
 #construct a set where the columns are the mean/stdev columns, and each row represents on Activity
 tidyData <- GenerateActivityMeans(data);
+
+#Then write out the tidy data set
+write.csv(tidyData, file="tidyData.csv");

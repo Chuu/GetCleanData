@@ -1,6 +1,6 @@
 Interpreting Column Names
 -------------------------
-Each column names consists of a preifx signifying what domain the data belongs to.  Interpreting the rest of the column name depends on what the prefix was.  There are currently three prefixes -- "t", "f", and "a".  These correspond to "Time Domain", "Frequency Domain", and "Angle".  Time Domain and Frequency Domain are interepreted in one way, Angle a seprate way.
+Each column names consists of a prefix signifying what domain the data belongs to.  Interpreting the rest of the column name depends on what the prefix was.  There are currently three prefixes -- "t", "f", and "a".  These correspond to "Time Domain", "Frequency Domain", and "Angle".  Time Domain and Frequency Domain are interpreted in one way, Angle a separate way.
 
 # Time Domain / Frequency Domain Variable Convention
 
@@ -10,7 +10,12 @@ If the variable name beings with a "t" or "f", then the full name can be broken 
 - The type signal being measured
 - The specific statistic of the signal being measured
 - The domain specifier
-- The activity
+
+The last three fields are separated via a period.  The first field (i.e. t or f) is not.  Some example names following this convention are below:
+
+- tGravityAcc.mean.X
+- tBodyGyroJerk.std.Z
+- fBodyGyro.std.Y
 
 The naming convention for the statistic being measured is as below:
 
@@ -32,15 +37,6 @@ The naming convention for the statistic being measured is as below:
 - bandsEnergy: Energy of a frequency interval within the 64 bins of the FFT of each window.
 - angle: Angle between to vectors.
 
-The naming set of activities is as follows:
-
-- WALKING
-- WALKING_UPSTAIR
-- WALKING_DOWNSTAIRS
-- SITTING
-- STANDING
-- LAYING
-
 # Angle Domain Variable Convention
 
 If the variable name begins with an "a", then the full name is broken into three parts.  They correspond to:
@@ -48,3 +44,8 @@ If the variable name begins with an "a", then the full name is broken into three
 - The prefix "a" that notes this measurement is in the "angle" domain"
 - The first vector element
 - The second vector element
+
+The last two fields are separated via a period.  The first field (i.e. "a") is not.  Some example names following this convention are below:
+
+- atBodyAccMean.gravity
+- atBodyGyroJerkMean.gravityMean
