@@ -52,12 +52,42 @@ GetActivities <- function()
   return(activities[order(activities$id), ]$Activity);
 }
 
+ExtractMeanStDevColNamesFilter <- function(x)
+{
+  colNames <- colnames(data);
+  return(grepl("(\\.mean\\.)|(\\.std\\.)", colNames));
+}
+
+#Take in a data frame with an Activities column, and returns a data frame with the
+#Activity folded into the name
+#FoldActivitiesIntoData <- function(data)
+#{
+#  AddActivityToColumnName <- function(group)
+#  {
+#    groupname <- toString(group$Activity[1]);
+#    columns <- names(group);
+#    return(lapply(columns, function(x) { paste(c(x, groupname), collapse=".")}));
+#  }
+#  
+#  splitData <- split(data, data$Activity)
+#  newColNames <- lapply(splitData, AddActivityToColumnName);
+#  mapply()
+#  
+#  return(newColNames);
+#}
+
 #Read the test table in using above functions to get and transform
 #column names, then rbind the training table to it
 data <- ReadAndMergeTables(lapply(GetHeaders(), CleanHeaderName));
+
+#Now we're going to remove any column that doesn't contain Mean or StDev measures
+data <- data[, ExtractMeanStDevColNamesFilter(data)]
+
 #We're going to CBind the activities to the data
-data <- cbind(data, GetActivities());
+data$Activity <- GetActivities();
+
+#Now something that normally I wouldn't do -- we're going to "fold" in the activity column
+#into the data by splitting by activity, and creating a new data.table where the column names
+#reflect the activity
 
 #Then, we're going to transform the activity names into something more useful
-
-
